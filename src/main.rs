@@ -1,39 +1,30 @@
-use core::num;
-use std::{collections::HashSet, sync::WaitTimeoutResult, vec};
 
-struct Solution;
 
-impl Solution {
-    pub fn common_chars(words: Vec<String>) -> Vec<String> {
-        let mut words_hash: Vec<HashSet<char>> = vec![];
-        for i in words{
-            
+pub fn longest_common_prefix(strs: Vec<String>) -> String {
+    let mut larges_prefix = String::new();
+    let mut first_string = &strs[0];
+    for i in 0..first_string.len(){
+        let mut flag = 0; 
+        for j in 1..strs.len(){
+            if first_string.chars().nth(i) == strs[j].chars().nth(i){
+                larges_prefix += &first_string.chars().nth(i).unwrap().to_string();
+                print!("{}\n", larges_prefix)
+            }else{
+                flag = 1;
+            }
         }
-        return vec![];
+        if flag == 1{
+            break;
+        }
     }
+    if larges_prefix.len() > 0{
+        return larges_prefix;
+    }
+    return "".to_string();
 }
+
 
 fn main(){
-    let mut str: String = String::from("dfh");
-}
-pub fn reformat_number(number: String) -> String {
-    let mut number: String = number.chars().filter(|a| *a != '-' && *a != ' ').collect();
-    let mut result: String = String::new();
-    while number.len() > 4 {
-        result.push_str(&number[0..3]);
-        result.push('-');
-        number = number[3..].to_string();
-    }
-    if number.len() == 4{
-        result.push_str(&number[0..2]);
-        result.push('-');
-        result.push_str(&number[2..]);
-    }else{
-        // 3 2
-        for i in (0..number.len()).step_by(3){
-            result.push_str(&number[..i]);
-        }
-        result.push_str(&number[..]);
-    }
-    return result;
+    print!("{}\n", longest_common_prefix(vec!["flower".to_string(),"flow".to_string(),"flight".to_string()]));
+
 }
